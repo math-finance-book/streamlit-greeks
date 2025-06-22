@@ -92,25 +92,13 @@ def greeks(S, K, r, sigma, T, option_type="call"):
 # -------------------------------
 
 def main():
-    # st.title("")
-
-    st.markdown(
-        """
-        This illustrates how the Greeks (delta, gamma, vega, 
-        theta, and rho) vary in the Black-Scholes model as a function of 
-        the underlying asset price \( S \) and other model parameters.  Click the &#9654; arrow 
-        above to open up a window with sliders that control the other parameters, including whether the option
-        is a call or a put.
-        """
-    )
-
     # Sidebar parameters
-    st.sidebar.header("Model Parameters")
-    option_type = st.sidebar.selectbox("Option Type:", ("call", "put"))
-    K = st.sidebar.slider("Strike Price (K)", min_value=50.0, max_value=150.0, value=100.0, step=1.0)
-    r = st.sidebar.slider("Risk-Free Rate (r)", min_value=0.0, max_value=0.2, value=0.05, step=0.01)
-    sigma = st.sidebar.slider("Volatility (σ)", min_value=0.05, max_value=1.0, value=0.2, step=0.01)
-    T = st.sidebar.slider("Time to Maturity (T, in years)", min_value=0.01, max_value=2.0, value=1.0, step=0.01)
+    with st.sidebar:
+        option_type = st.selectbox("Option type:", ("call", "put"))
+        K = st.slider("Strike price:", min_value=50.0, max_value=150.0, value=100.0, step=1.0)
+        r = st.slider("Risk-free rate:", min_value=0.0, max_value=0.2, value=0.05, step=0.01)
+        sigma = st.slider("Volatility:", min_value=0.05, max_value=1.0, value=0.2, step=0.01)
+        T = st.slider("Time to maturity:", min_value=0.01, max_value=2.0, value=1.0, step=0.01)
 
     # Underlying price range
     S_values = np.linspace(1, 2*K, 200)
@@ -126,7 +114,6 @@ def main():
 
     # Create subplots
     fig, axes = plt.subplots(2, 3, figsize=(12, 8))
-    fig.suptitle(f"Greeks for a Black-Scholes {option_type.capitalize()} Option", fontsize=16)
 
     ax1 = axes[0, 0]
     ax2 = axes[0, 1]
