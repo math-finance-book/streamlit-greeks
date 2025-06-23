@@ -92,13 +92,34 @@ def greeks(S, K, r, sigma, T, option_type="call"):
 # -------------------------------
 
 def main():
-    # Sidebar parameters
-    with st.sidebar:
-        option_type = st.selectbox("Option type:", ("call", "put"))
-        K = st.slider("Strike price:", min_value=50.0, max_value=150.0, value=100.0, step=1.0)
-        r = st.slider("Risk-free rate:", min_value=0.0, max_value=0.2, value=0.05, step=0.01)
-        sigma = st.slider("Volatility:", min_value=0.05, max_value=1.0, value=0.2, step=0.01)
-        T = st.slider("Time to maturity:", min_value=0.01, max_value=2.0, value=1.0, step=0.01)
+    # Top control area with shaded background
+    with st.container():
+        st.markdown("""
+            <style>
+            .control-area {
+                background-color: #f0f2f6;
+                padding: 20px;
+                border-radius: 10px;
+                margin-bottom: 20px;
+            }
+            </style>
+            <div class="control-area">
+            """, unsafe_allow_html=True)
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            option_type = st.selectbox("Option type:", ("call", "put"))
+            K = st.slider("Strike price:", min_value=50.0, max_value=150.0, value=100.0, step=1.0)
+        
+        with col2:
+            r = st.slider("Risk-free rate:", min_value=0.0, max_value=0.2, value=0.05, step=0.01)
+            sigma = st.slider("Volatility:", min_value=0.05, max_value=1.0, value=0.2, step=0.01)
+        
+        with col3:
+            T = st.slider("Time to maturity:", min_value=0.01, max_value=2.0, value=1.0, step=0.01)
+        
+        st.markdown("</div>", unsafe_allow_html=True)
 
     # Underlying price range
     S_values = np.linspace(1, 2*K, 200)
