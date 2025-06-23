@@ -92,20 +92,8 @@ def greeks(S, K, r, sigma, T, option_type="call"):
 # -------------------------------
 
 def main():
-    # Top control area with shaded background
+    # Top control area
     with st.container():
-        st.markdown("""
-            <style>
-            .control-area {
-                background-color: #f0f2f6;
-                padding: 20px;
-                border-radius: 10px;
-                margin-bottom: 20px;
-            }
-            </style>
-            <div class="control-area">
-            """, unsafe_allow_html=True)
-        
         col1, col2, col3 = st.columns(3)
         
         with col1:
@@ -119,7 +107,6 @@ def main():
         with col3:
             T = st.slider("Time to maturity:", min_value=0.01, max_value=2.0, value=1.0, step=0.01)
         
-        st.markdown("</div>", unsafe_allow_html=True)
 
     # Underlying price range
     S_values = np.linspace(1, 2*K, 200)
